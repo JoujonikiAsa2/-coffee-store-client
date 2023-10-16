@@ -1,11 +1,42 @@
+import { useContext } from "react";
+import { AuthContext } from "../Provider/AuthProvider";
+import Swal from "sweetalert2";
+
 const SignUp = () => {
 
+    const {createUser} = useContext(AuthContext)
     const handleSignUp = (e) =>{
         e.preventDefault()
         const form = e.target
         const email = form.email.value
         const password = form.password.value
         console.log(email,password)
+
+        createUser(email,password)
+        .then(res => {
+            console.log(res.user)
+            const createAt = res.user?.metadata?.creationTime
+            const user = {email,createAt};
+            fetch('http://localhost:5000/user', {
+                method: 'POST',
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify(user)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.insertedId) {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Coffee added successfully!',
+                            icon: 'success',
+                            confirmButtonText: 'Cool'
+                        })
+                        form.reset()
+                    }
+                })
+        })
+        .catch(error=> console.log(error.message))
     }
     return (
         <div>

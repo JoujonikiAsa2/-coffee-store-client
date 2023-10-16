@@ -12,6 +12,7 @@ import UpdateCoffee from './components/UpdateCoffee';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import AuthProvider from './Provider/AuthProvider';
+import Users from './components/Users';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -34,6 +35,11 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login></Login>
+  },
+  {
+    path: '/users',
+    element: <Users></Users>,
+    loader: () =>fetch('http://localhost:5000/user')
   }
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(

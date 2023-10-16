@@ -1,7 +1,6 @@
-import { Link, useLoaderData } from 'react-router-dom'
+import { useLoaderData } from 'react-router-dom'
 import './App.css'
 import CoffeeCard from './components/CoffeeCard'
-import { FaArrowRight } from 'react-icons/fa'
 import Navbar from './components/Navbar'
 
 function App() {
